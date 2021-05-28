@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring5_rest_study.mappers.MemberMapper">
+
+	<resultMap type="Member" id="ResMember">
+		<id property="id" column="id"/>
+		<result property="email" column="email"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="registerDateTime" column="regdate"/>
+	</resultMap>
+	
+	<sql id="selectSQL">
+		select ID,EMAIL,PASSWORD,NAME,REGDATE from member
+	</sql>
+	
+	<sql id="whereSQL">
+		<where>
+			<if test="id != 0">
+				and id = #{id}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="getMemberByEmail" resultMap="ResMember">
+		<include refid="selectSQL"></include>
+		where email = #{email}
+	</select>
+	
+	<select id="getLists" resultMap="ResMember">
+		<include refid="selectSQL"></include>
+	</select>
+	
+	<select id="getMember" resultMap="ResMember">
+		<include refid="selectSQL"></include>
+		where id = #{id}
+	</select>
+	
+	<insert id="registerMember">
+		insert into member (email, PASSWORD,name,REGDATE) 
+		values(#{email},#{password},#{name},now())
+	</insert>
+	
+	<update id="modifyMember">
+		update member
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="password != null">password = #{password},</if>
+			<if test="email != null">email = #{email},</if>
+		</set>
+			where id = #{id}
+	</update>
+	
+	<delete id="removeMember">
+		delete 
+		  from member 
+		<include refid="whereSQL"></include>
+	</delete>
+	
+</mapper>

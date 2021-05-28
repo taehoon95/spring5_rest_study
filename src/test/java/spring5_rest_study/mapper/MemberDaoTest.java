@@ -1,0 +1,92 @@
+package spring5_rest_study.mapper;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import spring5_rest_study.config.ContextRoot;
+import spring5_rest_study.dto.Member;
+import spring5_rest_study.mappers.MemberMapper;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { ContextRoot.class })
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@WebAppConfiguration
+public class MemberDaoTest {
+	private static final Log log = LogFactory.getLog(MemberDaoTest.class);
+
+	@Autowired
+	private MemberMapper mapper;
+
+	@After
+	public void tearDown() throws Exception {
+		System.out.println();
+	}
+
+	@Test
+	public void test01selectAll() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		List<Member> list = mapper.getLists();
+		list.stream().forEach(System.out::println);
+		Assert.assertNotNull(list);
+	}
+
+	@Test
+	public void test02insertMember() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		LocalDateTime ldt = LocalDateTime.now();
+		Member addMember = new Member("22@22.co.kr", "123", "test", ldt);
+		int res = mapper.registerMember(addMember);
+		Assert.assertEquals(1, res);
+		System.out.println(addMember);
+	}
+
+	@Test
+	public void test03UpdateMember() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		LocalDateTime ldt = LocalDateTime.now();
+		Member member1= mapper.getMemberByEmail("22@22.co.kr");
+		System.out.println(member1.getId());
+		Member member = new Member("22@22.co.kr", "222", "test2", ldt);
+		member.setId(member1.getId());
+		int res = mapper.modifyMember(member);
+		Assert.assertEquals(1, res);
+	}
+
+	@Test
+	public void test04SelectById() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Member member = mapper.getMemberByEmail("22@22.co.kr");
+		Member memberId = mapper.getMember(member.getId());
+		System.out.println(memberId);
+		Assert.assertNotNull(memberId);
+	}
+
+	@Test
+	public void test05DeleteMember() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Member member = mapper.getMemberByEmail("22@22.co.kr");
+		int res = mapper.removeMember(member.getId());
+		Assert.assertEquals(1, res);
+	}
+
+	@Test
+	public void test06SelectMemberByEmail() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Member member = mapper.getMemberByEmail("test1@test.co.kr");
+		Assert.assertNotNull(member);
+	}
+
+}
