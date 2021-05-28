@@ -18,7 +18,6 @@ public class RemoveMemberServiceController {
 	
 	@DeleteMapping("/members/{id}")
 	public ResponseEntity<Object> deleteMembers(@PathVariable long id){
-		System.out.println("deleteMember > " + id);
 		return ResponseEntity.ok(service.removeMember(id));
 	}
 }
