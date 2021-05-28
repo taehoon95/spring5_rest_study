@@ -22,9 +22,8 @@ public class RegisterMemberServiceController {
 	@Autowired
 	private RegisterMemberService service;
 	
-	@PostMapping("/members/")
+	@PostMapping("/members")
 	public ResponseEntity<Object> newMember(@RequestBody Member member){
-		System.out.println("newMember > " + member);
 		try {
 			service.registerMember(member);
 			
