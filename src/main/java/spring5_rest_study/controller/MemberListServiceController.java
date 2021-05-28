@@ -17,7 +17,6 @@ public class MemberListServiceController {
 	
 	@GetMapping("/members")
 	public ResponseEntity<Object> members(){
-		System.out.println("members()");
 		return ResponseEntity.ok(service.getLists());
 	}
 }
