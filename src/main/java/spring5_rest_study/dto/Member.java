@@ -2,19 +2,26 @@ package spring5_rest_study.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import spring5_rest_study.exception.WrongIdPasswordException;
 
 public class Member {
 	private Long id;
+	@Valid
 	private String email;
+	@Size(min=6)
 	private String password;
+	@NotEmpty
 	private String name;
 	private LocalDateTime registerDateTime;
 
 	public Member() {
 	}
 	
-	public Member(String email, String password, String name, LocalDateTime registerDateTime) {
+	public Member(String email, String password,String name, LocalDateTime registerDateTime) {
 		this.email = email;
 		this.password = password;
 		this.name = name;

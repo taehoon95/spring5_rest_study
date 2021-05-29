@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring5_rest_study.dto.Member;
+import spring5_rest_study.exception.MemberNotFoundException;
 import spring5_rest_study.service.GetMemberService;
 
 @RestController
@@ -23,7 +24,7 @@ public class GetMemberServiceController {
 	public ResponseEntity<Object> member(@PathVariable long id,HttpServletResponse response){
 		Member member = service.getMember(id);
 		if(member == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			throw new MemberNotFoundException();
 		}
 		return ResponseEntity.ok(member);
 	}

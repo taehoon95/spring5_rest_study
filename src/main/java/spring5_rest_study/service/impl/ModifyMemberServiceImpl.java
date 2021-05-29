@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import spring5_rest_study.dto.Member;
 import spring5_rest_study.mappers.MemberMapper;
 @Service
-public class ModifyMemberService implements spring5_rest_study.service.ModifyMemberService {
+public class ModifyMemberServiceImpl implements spring5_rest_study.service.ModifyMemberService {
 
 	static final Log log = LogFactory.getLog(MemberListServiceImpl.class);
 	

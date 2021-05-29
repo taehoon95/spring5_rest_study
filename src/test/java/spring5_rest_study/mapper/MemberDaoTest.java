@@ -85,7 +85,7 @@ public class MemberDaoTest {
 	@Test
 	public void test06SelectMemberByEmail() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
-		Member member = mapper.getMemberByEmail("test1@test.co.kr");
+		Member member = mapper.getMemberByEmail("test121214@test.co.kr");
 		Assert.assertNotNull(member);
 	}
 

@@ -55,8 +55,8 @@
 		<thead>
 			<tr>
 				<th>아이디</th>					
-				<th>이메일</th>					
 				<th>이름</th>					
+				<th>이메일</th>					
 				<th>가입일</th>					
 			</tr>
 		</thead>

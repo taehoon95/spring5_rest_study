@@ -24,9 +24,10 @@ $(function(){
 					var newMember = {
 						email : $('#email').val(),
 						name : $('#name').val(),
-						password : $('#password').val()
+						password : $('#password').val(),
+						confirmPassword : $('#confirmPassword').val()
 					};
-					alert("data > " + newMember.email);
+					alert("data > " + newMember.confirmPassword + "     -------     " );
 					$.ajax({
 						url : contextPath + "api/members",
 						type : "POST",
